@@ -1,0 +1,96 @@
+module FIGO_FSM_Rover (
+  input wire clk,
+  input wire reset,
+  input wire input_condition,
+  output reg [2:0] current_room
+);
+  parameter [2:0] ROOM0 = 3'b000;
+  parameter [2:0] ROOM1 = 3'b001;
+  parameter [2:0] ROOM2 = 3'b010;
+  parameter [2:0] ROOM3 = 3'b011;
+  parameter [2:0] ROOM4 = 3'b100;
+  parameter [2:0] ROOM5 = 3'b101;
+  parameter [2:0] ROOM6 = 3'b110;
+  parameter [2:0] ROOM7 = 3'b111;
+
+ reg [2:0] state;
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      state <= ROOM0; // Initialize state to ROOM0
+    end else begin
+      case (state)
+        ROOM0: begin
+          if (input_condition) begin
+            state <= ROOM1;
+          end else begin
+            state <= ROOM0;
+          end
+        end
+        ROOM1: begin
+          if (input_condition) begin
+            state <= ROOM2;
+          end else begin
+            state <= ROOM0;
+          end
+        end
+        ROOM2: begin
+          if (input_condition) begin
+            state <= ROOM3;
+          end else begin
+            state <= ROOM0;
+          end
+        end
+        ROOM3: begin
+          if (input_condition) begin
+            state <= ROOM4;
+          end else begin
+            state <= ROOM0;
+          end
+        end
+        ROOM4: begin
+          if (input_condition) begin
+            state <= ROOM5;
+          end else begin
+            state <= ROOM0;
+          end
+        end
+        ROOM5: begin
+          if (input_condition) begin
+            state <= ROOM6;
+          end else begin
+            state <= ROOM0;
+          end
+        end
+        ROOM6: begin
+          if (input_condition) begin
+            state <= ROOM7;
+          end else begin
+            state <= ROOM0;
+          end
+        end
+        ROOM7: begin
+          if (input_condition) begin
+            state <= ROOM6;
+          end else begin
+            state <= ROOM7;
+          end
+        end
+      endcase
+    end
+  end
+
+  always @(state) begin
+    case (state)
+      ROOM0: current_room = ROOM0;
+      ROOM1: current_room = ROOM1;
+      ROOM2: current_room = ROOM2;
+      ROOM3: current_room = ROOM3;
+      ROOM4: current_room = ROOM4;
+      ROOM5: current_room = ROOM5;
+      ROOM6: current_room = ROOM6;
+      ROOM7: current_room = ROOM7;
+    endcase
+  end
+
+endmodule
