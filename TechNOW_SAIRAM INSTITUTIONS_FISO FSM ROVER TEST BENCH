@@ -1,0 +1,69 @@
+module FigoFSM_tb;
+
+  reg clk;
+  reg reset;
+  reg input_condition;
+  wire [2:0] current_room;
+
+ 
+  FIGO_FSM_Rover dut (
+    .clk(clk),
+    .reset(reset),
+    .input_condition(input_condition),
+    .current_room(current_room)
+  );
+
+  always begin
+    #5 clk = ~clk; // Toggle the clock every 5 time units
+  end
+
+  initial begin
+    reset = 1; // Apply reset
+    input_condition = 0; // Set initial input condition
+
+    #10 reset = 0; // Deassert reset
+
+    #20;
+    input_condition = 0;
+
+    #20;
+    input_condition = 1;
+
+    #20;
+    input_condition = 1;
+
+    #20;
+    input_condition = 0;
+
+    #20;
+    input_condition = 0;
+
+    #20;
+    input_condition = 1;
+
+    #20;
+    input_condition = 1;
+
+    #20;
+    input_condition = 1;
+
+    #20;
+    input_condition = 1;
+
+    #20;
+    input_condition = 1;
+
+    #20;
+    input_condition = 1;
+
+    #20;
+    input_condition = 1;
+    #20;
+    input_condition = 0;
+
+    #20;
+    input_condition = 0;
+    $finish; 
+  end
+
+endmodule
